@@ -1,3 +1,4 @@
 # event_manager
 
-A new Flutter project.
+Dự án xây dựng một trình quản lý sự kiện bằng flutter
+
