@@ -92,11 +92,11 @@ class _EventDetailViewState extends State<EventDetailView> {
             children: [
               TextField(
                 controller: subjectController,
-                decoration: const InputDecoration(labelText: "Tên sự kiện"),
+                decoration: InputDecoration(labelText: al.labelText),
               ),
               SizedBox(height: 16),
               ListTile(
-                title: const Text("Sự kiện cả ngày"),
+                title: Text(al.allDayEvent),
                 trailing: Switch(
                   value: widget.event.isAllDay,
                   onChanged: (value) {
@@ -109,8 +109,8 @@ class _EventDetailViewState extends State<EventDetailView> {
               const SizedBox(height: 16),
               ListTile(
                 title: Text(widget.event.isAllDay
-                    ? 'Bắt đầu: ${widget.event.startTime.day}/${widget.event.startTime.month}/${widget.event.startTime.year}'
-                    : 'Bắt đầu: ${widget.event.formatedStartTimeString}'),
+                    ? '${al.start}: ${widget.event.startTime.day}/${widget.event.startTime.month}/${widget.event.startTime.year}'
+                    : '${al.start}: ${widget.event.formatedStartTimeString}'),
                 trailing: const Icon(Icons.calendar_today_outlined),
                 onTap: () async {
                   if (widget.event.isAllDay) {
@@ -122,9 +122,7 @@ class _EventDetailViewState extends State<EventDetailView> {
                     );
                     if (picked != null) {
                       setState(() {
-                        // set to start of day
                         widget.event.startTime = DateTime(picked.year, picked.month, picked.day);
-                        // ensure end is after start (for all-day, end = start + 1 day if it was equal or before)
                         if (!widget.event.endTime.isAfter(widget.event.startTime)) {
                           widget.event.endTime = widget.event.startTime.add(const Duration(days: 1));
                         }
@@ -138,7 +136,7 @@ class _EventDetailViewState extends State<EventDetailView> {
             
               if (widget.event.isAllDay)
                 ListTile(
-                  title: Text('Chọn giờ bắt đầu: ${TimeOfDay.fromDateTime(widget.event.startTime).format(context)}'),
+                  title: Text('${al.chooseStartTime}: ${TimeOfDay.fromDateTime(widget.event.startTime).format(context)}'),
                   trailing: const Icon(Icons.access_time_outlined),
                   onTap: () async {
                     final pickedTime = await showTimePicker(
@@ -164,8 +162,8 @@ class _EventDetailViewState extends State<EventDetailView> {
               const SizedBox(height: 16),
               ListTile(
                 title: Text(widget.event.isAllDay
-                    ? 'Kết thúc: ${widget.event.endTime.day}/${widget.event.endTime.month}/${widget.event.endTime.year}'
-                    : 'Kết thúc: ${widget.event.formatedEndTimeString}'),
+                    ? '${al.end}: ${widget.event.endTime.day}/${widget.event.endTime.month}/${widget.event.endTime.year}'
+                    : '${al.end}: ${widget.event.formatedEndTimeString}'),
                 trailing: const Icon(Icons.calendar_today_outlined),
                 onTap: () async {
                   if (widget.event.isAllDay) {
@@ -177,9 +175,7 @@ class _EventDetailViewState extends State<EventDetailView> {
                     );
                     if (picked != null) {
                       setState(() {
-                        // set to start of picked day
                         widget.event.endTime = DateTime(picked.year, picked.month, picked.day).add(const Duration(days: 1));
-                        // ensure end is after start
                         if (!widget.event.endTime.isAfter(widget.event.startTime)) {
                           widget.event.endTime = widget.event.startTime.add(const Duration(days: 1));
                         }
@@ -192,7 +188,7 @@ class _EventDetailViewState extends State<EventDetailView> {
               ),
               if (widget.event.isAllDay)
                 ListTile(
-                  title: Text('Chọn giờ kết thúc: ${TimeOfDay.fromDateTime(widget.event.endTime).format(context)}'),
+                  title: Text('${al.chooseEndTime}: ${TimeOfDay.fromDateTime(widget.event.endTime).format(context)}'),
                   trailing: const Icon(Icons.access_time_outlined),
                   onTap: () async {
                     final pickedTime = await showTimePicker(
@@ -218,8 +214,8 @@ class _EventDetailViewState extends State<EventDetailView> {
               const SizedBox(height: 16),
               TextField(
                 controller: notesController,
-                decoration: const InputDecoration(
-                  labelText: 'Ghi chú sự kiện',
+                decoration: InputDecoration(
+                  labelText: al.eventNotes,
                 ),
                 maxLines: 3,
               ),
@@ -231,12 +227,12 @@ class _EventDetailViewState extends State<EventDetailView> {
                     FilledButton.tonalIcon(
                       onPressed: _deleteEvent,
                       icon: const Icon(Icons.delete),
-                      label: const Text('Xóa sự kiện'),
+                      label: Text(al.deleteEvent),
                     ),
                   FilledButton.icon(
                     onPressed: _saveEvent,
                     icon: const Icon(Icons.save),
-                    label: const Text('Lưu sự kiện'),
+                    label: Text(al.saveEvent),
                   ),
                 ],
               ),

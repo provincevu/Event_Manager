@@ -2,5 +2,17 @@
     "@@locale": "en",
     "apptitle" : "Event Manager",
     "addEvent" : "Add Event",
-    "eventDetails" : "Event Details"
+    "eventDetails" : "Event Details",
+    "labelText" : "Event Name",
+    "start" : "Start",
+    "end" : "End",
+    "chooseStartTime" : "Choose Start Time",
+    "chooseEndTime" : "Choose End Time",
+    "eventNotes" : "Event Notes",
+    "deleteEvent" : "Delete Event",
+    "saveEvent" : "Save Event",
+    "allDayEvent" : "All-day Event",
+    "noEventsFound": "No events found",
+    "noTitle": "(No Title)",
+    "newEvent": "New Event"
 }

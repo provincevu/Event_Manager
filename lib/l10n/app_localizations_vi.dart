@@ -16,4 +16,40 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get eventDetails => 'Chi Tiết Sự Kiện';
+
+  @override
+  String get labelText => 'Tên Sự Kiện';
+
+  @override
+  String get start => 'Bắt Đầu';
+
+  @override
+  String get end => 'Kết Thúc';
+
+  @override
+  String get chooseStartTime => 'Chọn Giờ Bắt Đầu';
+
+  @override
+  String get chooseEndTime => 'Chọn Giờ Kết Thúc';
+
+  @override
+  String get eventNotes => 'Ghi Chú Sự Kiện';
+
+  @override
+  String get deleteEvent => 'Xóa Sự Kiện';
+
+  @override
+  String get saveEvent => 'Lưu Sự Kiện';
+
+  @override
+  String get allDayEvent => 'Sự Kiện Cả Ngày';
+
+  @override
+  String get noEventsFound => 'Không tìm thấy sự kiện';
+
+  @override
+  String get noTitle => '(Không tiêu đề)';
+
+  @override
+  String get newEvent => 'Sự kiện mới';
 }

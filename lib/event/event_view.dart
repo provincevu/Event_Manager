@@ -2,6 +2,7 @@ import 'package:event_manager/event/event_service.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import '../l10n/app_localizations.dart';
+import 'package:event_manager/main.dart';
 import 'package:event_manager/event/event_detail_view.dart';
 import 'package:event_manager/event/event_model.dart';
 import 'package:event_manager/event/event_data_source.dart';
@@ -47,14 +48,14 @@ class EventSearchDelegate extends SearchDelegate<EventModel?> {
   Widget buildResults(BuildContext context) {
     final results = _filter(query);
     if (results.isEmpty) {
-      return const Center(child: Text('Không tìm thấy sự kiện'));
+      return Center(child: Text(AppLocalizations.of(context)!.noEventsFound));
     }
     return ListView.builder(
       itemCount: results.length,
       itemBuilder: (context, index) {
         final e = results[index];
         return ListTile(
-          title: Text(e.subject.isEmpty ? '(Không tiêu đề)' : e.subject),
+          title: Text(e.subject.isEmpty ? AppLocalizations.of(context)!.noTitle : e.subject),
           subtitle: Text('${e.startTime} - ${e.endTime}'),
           onTap: () => close(context, e),
         );
@@ -70,7 +71,7 @@ class EventSearchDelegate extends SearchDelegate<EventModel?> {
       itemBuilder: (context, index) {
         final e = suggestions[index];
         return ListTile(
-          title: Text(e.subject.isEmpty ? '(Không tiêu đề)' : e.subject),
+          title: Text(e.subject.isEmpty ? AppLocalizations.of(context)!.noTitle : e.subject),
           subtitle: Text('${e.startTime}'),
           onTap: () => close(context, e),
         );
@@ -97,8 +98,7 @@ class _EventViewState extends State<EventView> {
       items = events;
     });
   }
-  final ValueNotifier<Locale?> appLocale = ValueNotifier<Locale?>(Locale('vi'));
-  void setAppLocale(Locale? locale) => appLocale.value = locale;
+
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +114,7 @@ class _EventViewState extends State<EventView> {
               const PopupMenuItem(value: 'en', child: Text('English')),
             ],
             onSelected: (code) {
-              setAppLocale(Locale(code));
+              MyApp.of(context)?.setLocale(Locale(code));
             },
           ),
           PopupMenuButton<CalendarView>(
@@ -170,7 +170,7 @@ class _EventViewState extends State<EventView> {
         onLongPress: (details) {
           if (details.targetElement == CalendarElement.calendarCell) {
             final newEvent = EventModel(
-              subject: 'Sự kiện mới',
+              subject: al.newEvent,
               startTime: details.date!,
               endTime: details.date!.add(const Duration(hours: 1)),
             );

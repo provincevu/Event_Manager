@@ -16,4 +16,40 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get eventDetails => 'Event Details';
+
+  @override
+  String get labelText => 'Event Name';
+
+  @override
+  String get start => 'Start';
+
+  @override
+  String get end => 'End';
+
+  @override
+  String get chooseStartTime => 'Choose Start Time';
+
+  @override
+  String get chooseEndTime => 'Choose End Time';
+
+  @override
+  String get eventNotes => 'Event Notes';
+
+  @override
+  String get deleteEvent => 'Delete Event';
+
+  @override
+  String get saveEvent => 'Save Event';
+
+  @override
+  String get allDayEvent => 'All-day Event';
+
+  @override
+  String get noEventsFound => 'No events found';
+
+  @override
+  String get noTitle => '(No Title)';
+
+  @override
+  String get newEvent => 'New Event';
 }

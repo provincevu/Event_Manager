@@ -2,5 +2,18 @@
     "@@locale": "vi",
     "apptitle" : "Quản Lý Sự Kiện",
     "addEvent" : "Thêm Sự Kiện",
-    "eventDetails" : "Chi Tiết Sự Kiện"
+    "eventDetails" : "Chi Tiết Sự Kiện",
+    "labelText" : "Tên Sự Kiện",
+    "start" : "Bắt Đầu",
+    "end" : "Kết Thúc",
+    "chooseStartTime" : "Chọn Giờ Bắt Đầu",
+    "chooseEndTime" : "Chọn Giờ Kết Thúc",
+    "eventNotes" : "Ghi Chú Sự Kiện",
+    "deleteEvent" : "Xóa Sự Kiện",
+    "saveEvent" : "Lưu Sự Kiện",
+    "allDayEvent" : "Sự Kiện Cả Ngày",
+    "noEventsFound": "Không tìm thấy sự kiện",
+    "noTitle": "(Không tiêu đề)",
+    "newEvent": "Sự kiện mới"
+
 }

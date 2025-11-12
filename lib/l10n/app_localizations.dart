@@ -115,6 +115,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Event Details'**
   String get eventDetails;
+
+  /// No description provided for @labelText.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Name'**
+  String get labelText;
+
+  /// No description provided for @start.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get start;
+
+  /// No description provided for @end.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get end;
+
+  /// No description provided for @chooseStartTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose Start Time'**
+  String get chooseStartTime;
+
+  /// No description provided for @chooseEndTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose End Time'**
+  String get chooseEndTime;
+
+  /// No description provided for @eventNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Event Notes'**
+  String get eventNotes;
+
+  /// No description provided for @deleteEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete Event'**
+  String get deleteEvent;
+
+  /// No description provided for @saveEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Event'**
+  String get saveEvent;
+
+  /// No description provided for @allDayEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'All-day Event'**
+  String get allDayEvent;
+
+  /// No description provided for @noEventsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No events found'**
+  String get noEventsFound;
+
+  /// No description provided for @noTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'(No Title)'**
+  String get noTitle;
+
+  /// No description provided for @newEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'New Event'**
+  String get newEvent;
 }
 
 class _AppLocalizationsDelegate

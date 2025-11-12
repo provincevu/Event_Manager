@@ -1,34 +1,39 @@
 import 'package:event_manager/event/event_view.dart';
 import 'package:flutter/material.dart';
-import '../l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'l10n/app_localizations.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  MyApp({super.key});
-  final ValueNotifier<Locale?> appLocale = ValueNotifier<Locale?>(Locale('vi'));
-  void setAppLocale(Locale? locale) => appLocale.value = locale;
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  // Cung cấp cách truy cập tới state để đổi locale từ các màn hình con
+  static _MyAppState? of(BuildContext context) =>
+      context.findAncestorStateOfType<_MyAppState>();
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale = const Locale('vi');
+
+  void setLocale(Locale? locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<Locale?>(
-      valueListenable: appLocale,
-      builder: (context, locale, _) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
-          supportedLocales: const [Locale('en'), Locale('vi')],
-          locale: locale,
-          home: const EventView(),
-        );
-      },
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
+      locale: _locale,
+      home: const EventView(),
     );
   }
 }
