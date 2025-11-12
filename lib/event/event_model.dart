@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+enum EventCategory { personal, study, work, health, group, travel }
+
 class EventModel {
   String? id;
   DateTime startTime;
@@ -8,6 +10,7 @@ class EventModel {
   String subject;
   String? notes;
   String? recurrenceRule;
+  EventCategory category;
 
   EventModel({
     this.id,
@@ -17,6 +20,7 @@ class EventModel {
     this.subject = '',
     this.notes,
     this.recurrenceRule,
+    this.category = EventCategory.personal,
   });
 
   // copyWith method
@@ -28,6 +32,7 @@ class EventModel {
     String? subject,
     String? notes,
     String? recurrenceRule,
+    EventCategory? category,
   }) {
     return EventModel(
       id: id ?? this.id,
@@ -37,6 +42,7 @@ class EventModel {
       subject: subject ?? this.subject,
       notes: notes ?? this.notes,
       recurrenceRule: recurrenceRule ?? this.recurrenceRule,
+      category: category ?? this.category,
     );
   }
 
@@ -50,10 +56,16 @@ class EventModel {
       'subject': subject,
       'notes': notes,
       'recurrenceRule': recurrenceRule,
+      'category': category.name,
     };
   }
 
   factory EventModel.fromMap(Map<String, dynamic> map) {
+    final categoryStr = map['category'] as String?;
+    final category = EventCategory.values.firstWhere(
+      (e) => e.name == categoryStr,
+      orElse: () => EventCategory.personal,
+    );
     return EventModel(
       id: map['id'] as String?,
       startTime: DateTime.fromMillisecondsSinceEpoch(map['startTime'] as int),
@@ -62,6 +74,7 @@ class EventModel {
       subject: map['subject'] as String? ?? '',
       notes: map['notes'] as String?,
       recurrenceRule: map['recurrenceRule'] as String?,
+      category: category,
     );
   }
 
@@ -72,32 +85,34 @@ class EventModel {
 
   @override
   String toString() {
-    return 'EventModel(id: $id, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, subject: $subject, notes: $notes, recurrenceRule: $recurrenceRule)';
+    return 'EventModel(id: $id, startTime: $startTime, endTime: $endTime, isAllDay: $isAllDay, subject: $subject, notes: $notes, recurrenceRule: $recurrenceRule, category: $category)';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is EventModel &&
+  return other is EventModel &&
         other.id == id &&
         other.startTime == startTime &&
         other.endTime == endTime &&
         other.isAllDay == isAllDay &&
         other.subject == subject &&
-        other.notes == notes &&
-        other.recurrenceRule == recurrenceRule;
+    other.notes == notes &&
+    other.recurrenceRule == recurrenceRule &&
+    other.category == category;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^
+  return id.hashCode ^
         startTime.hashCode ^
         endTime.hashCode ^
         isAllDay.hashCode ^
         subject.hashCode ^
         notes.hashCode ^
-        recurrenceRule.hashCode;
+    recurrenceRule.hashCode ^
+    category.hashCode;
   }
 }
 

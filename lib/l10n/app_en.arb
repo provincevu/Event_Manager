@@ -14,5 +14,13 @@
     "allDayEvent" : "All-day Event",
     "noEventsFound": "No events found",
     "noTitle": "(No Title)",
-    "newEvent": "New Event"
+        "newEvent": "New Event",
+        "category": "Category",
+        "categoryAll": "All",
+        "categoryPersonal": "Personal",
+        "categoryStudy": "Study",
+        "categoryWork": "Work",
+        "categoryHealth": "Health",
+        "categoryGroup": "Group",
+        "categoryTravel": "Travel"
 }

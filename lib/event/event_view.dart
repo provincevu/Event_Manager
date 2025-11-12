@@ -84,6 +84,7 @@ class _EventViewState extends State<EventView> {
   final eventService = EventService();
   List<EventModel> items = [];
   final calendarController = CalendarController();
+  EventCategory? _filterCategory; // null = all
 
   @override
   void initState() {
@@ -103,10 +104,54 @@ class _EventViewState extends State<EventView> {
   @override
   Widget build(BuildContext context) {
     final al = AppLocalizations.of(context)!;
+    final List<EventModel> visibleItems = _filterCategory == null
+        ? items
+        : items.where((e) => e.category == _filterCategory).toList();
     return Scaffold(
       appBar: AppBar(
         title: Text(al.apptitle),
         actions: [
+          // Category filter
+          PopupMenuButton<EventCategory?>(
+            tooltip: al.category,
+            icon: const Icon(Icons.filter_list),
+            onSelected: (value) {
+              setState(() {
+                _filterCategory = value;
+              });
+            },
+            itemBuilder: (context) => <PopupMenuEntry<EventCategory?>>[
+              PopupMenuItem<EventCategory?>(
+                value: null,
+                child: Text('${al.category}: ${al.categoryAll}'),
+              ),
+              const PopupMenuDivider(),
+              PopupMenuItem<EventCategory?>(
+                value: EventCategory.personal,
+                child: Text(al.categoryPersonal),
+              ),
+              PopupMenuItem<EventCategory?>(
+                value: EventCategory.study,
+                child: Text(al.categoryStudy),
+              ),
+              PopupMenuItem<EventCategory?>(
+                value: EventCategory.work,
+                child: Text(al.categoryWork),
+              ),
+              PopupMenuItem<EventCategory?>(
+                value: EventCategory.health,
+                child: Text(al.categoryHealth),
+              ),
+              PopupMenuItem<EventCategory?>(
+                value: EventCategory.group,
+                child: Text(al.categoryGroup),
+              ),
+              PopupMenuItem<EventCategory?>(
+                value: EventCategory.travel,
+                child: Text(al.categoryTravel),
+              ),
+            ],
+          ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.language),
             itemBuilder: (context) => [
@@ -163,7 +208,7 @@ class _EventViewState extends State<EventView> {
       ),
       body: SfCalendar(
         controller: calendarController,
-        dataSource: EventDataSource(items),
+        dataSource: EventDataSource(visibleItems),
         monthViewSettings: const MonthViewSettings(
           appointmentDisplayMode: MonthAppointmentDisplayMode.appointment,
         ),
@@ -173,6 +218,7 @@ class _EventViewState extends State<EventView> {
               subject: al.newEvent,
               startTime: details.date!,
               endTime: details.date!.add(const Duration(hours: 1)),
+              category: _filterCategory ?? EventCategory.personal,
             );
             Navigator.of(context)
                 .push(

@@ -40,7 +40,8 @@ class EventDataSource extends CalendarDataSource {
   }
   @override
   Color getColor(int index) {
-    EventModel item  = appointments!.elementAt(index);
+    final EventModel item  = appointments!.elementAt(index);
+    // Không đổi màu theo loại; dùng một màu thống nhất cho sự kiện cả ngày
     return item.isAllDay ? const Color(0xFF42A5F5) : super.getColor(index);
   }
 }

@@ -52,4 +52,28 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get newEvent => 'Sự kiện mới';
+
+  @override
+  String get category => 'Loại ghi chú';
+
+  @override
+  String get categoryAll => 'Tất cả';
+
+  @override
+  String get categoryPersonal => 'Cá nhân';
+
+  @override
+  String get categoryStudy => 'Học tập';
+
+  @override
+  String get categoryWork => 'Công việc';
+
+  @override
+  String get categoryHealth => 'Sức khỏe';
+
+  @override
+  String get categoryGroup => 'Nhóm';
+
+  @override
+  String get categoryTravel => 'Du lịch';
 }

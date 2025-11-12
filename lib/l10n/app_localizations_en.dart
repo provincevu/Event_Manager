@@ -52,4 +52,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newEvent => 'New Event';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get categoryAll => 'All';
+
+  @override
+  String get categoryPersonal => 'Personal';
+
+  @override
+  String get categoryStudy => 'Study';
+
+  @override
+  String get categoryWork => 'Work';
+
+  @override
+  String get categoryHealth => 'Health';
+
+  @override
+  String get categoryGroup => 'Group';
+
+  @override
+  String get categoryTravel => 'Travel';
 }

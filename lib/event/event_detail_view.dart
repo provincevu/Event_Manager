@@ -94,6 +94,44 @@ class _EventDetailViewState extends State<EventDetailView> {
                 controller: subjectController,
                 decoration: InputDecoration(labelText: al.labelText),
               ),
+              const SizedBox(height: 16),
+              // Category selector
+              DropdownButtonFormField<EventCategory>(
+                value: widget.event.category,
+                decoration: InputDecoration(labelText: al.category),
+                items: [
+                  DropdownMenuItem(
+                    value: EventCategory.personal,
+                    child: Text(al.categoryPersonal),
+                  ),
+                  DropdownMenuItem(
+                    value: EventCategory.study,
+                    child: Text(al.categoryStudy),
+                  ),
+                  DropdownMenuItem(
+                    value: EventCategory.work,
+                    child: Text(al.categoryWork),
+                  ),
+                  DropdownMenuItem(
+                    value: EventCategory.health,
+                    child: Text(al.categoryHealth),
+                  ),
+                  DropdownMenuItem(
+                    value: EventCategory.group,
+                    child: Text(al.categoryGroup),
+                  ),
+                  DropdownMenuItem(
+                    value: EventCategory.travel,
+                    child: Text(al.categoryTravel),
+                  ),
+                ],
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    widget.event.category = value;
+                  });
+                },
+              ),
               SizedBox(height: 16),
               ListTile(
                 title: Text(al.allDayEvent),

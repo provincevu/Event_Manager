@@ -10,6 +10,7 @@ class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   // Cung cấp cách truy cập tới state để đổi locale từ các màn hình con
+  // ignore: library_private_types_in_public_api
   static _MyAppState? of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>();
 

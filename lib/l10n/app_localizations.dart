@@ -187,6 +187,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New Event'**
   String get newEvent;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @categoryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get categoryAll;
+
+  /// No description provided for @categoryPersonal.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal'**
+  String get categoryPersonal;
+
+  /// No description provided for @categoryStudy.
+  ///
+  /// In en, this message translates to:
+  /// **'Study'**
+  String get categoryStudy;
+
+  /// No description provided for @categoryWork.
+  ///
+  /// In en, this message translates to:
+  /// **'Work'**
+  String get categoryWork;
+
+  /// No description provided for @categoryHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get categoryHealth;
+
+  /// No description provided for @categoryGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Group'**
+  String get categoryGroup;
+
+  /// No description provided for @categoryTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get categoryTravel;
 }
 
 class _AppLocalizationsDelegate
