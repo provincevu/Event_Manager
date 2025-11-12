@@ -12,7 +12,7 @@
   - Lưu trữ cục bộ bằng Localstore.
 - Tính năng nâng cao
   - Lọc theo nhóm sự kiện: lọc các sự kiện theo tag/nhóm (ví dụ: Công việc, Cá nhân, Học tập).
-  - Thay đổi ngôn ngữ trong ứng dụng: chuyển nhanh giữa Tiếng Việt và English.
+  - Thay đổi ngôn ngữ trong ứng dụng: chuyển nhanh giữa Tiếng Việt và Tiếng Anh.
   - Tìm kiếm: tìm theo tiêu đề
 
 ---
