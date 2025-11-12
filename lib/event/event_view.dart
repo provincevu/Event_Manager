@@ -14,77 +14,14 @@ class EventView extends StatefulWidget {
   State<EventView> createState() => _EventViewState();
 }
 
-class EventSearchDelegate extends SearchDelegate<EventModel?> {
-  final List<EventModel> items;
-
-  EventSearchDelegate(this.items);
-
-  List<EventModel> _filter(String query) {
-    final q = query.toLowerCase();
-    return items.where((e) {
-      final subject = e.subject.toLowerCase();
-      final notes = (e.notes ?? '').toLowerCase();
-      return subject.contains(q) || notes.contains(q);
-    }).toList();
-  }
-
-  @override
-  List<Widget>? buildActions(BuildContext context) {
-    return [
-      if (query.isNotEmpty)
-        IconButton(icon: const Icon(Icons.clear), onPressed: () => query = ''),
-    ];
-  }
-
-  @override
-  Widget? buildLeading(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.arrow_back),
-      onPressed: () => close(context, null),
-    );
-  }
-
-  @override
-  Widget buildResults(BuildContext context) {
-    final results = _filter(query);
-    if (results.isEmpty) {
-      return Center(child: Text(AppLocalizations.of(context)!.noEventsFound));
-    }
-    return ListView.builder(
-      itemCount: results.length,
-      itemBuilder: (context, index) {
-        final e = results[index];
-        return ListTile(
-          title: Text(e.subject.isEmpty ? AppLocalizations.of(context)!.noTitle : e.subject),
-          subtitle: Text('${e.startTime} - ${e.endTime}'),
-          onTap: () => close(context, e),
-        );
-      },
-    );
-  }
-
-  @override
-  Widget buildSuggestions(BuildContext context) {
-    final suggestions = query.isEmpty ? items : _filter(query);
-    return ListView.builder(
-      itemCount: suggestions.length,
-      itemBuilder: (context, index) {
-        final e = suggestions[index];
-        return ListTile(
-          title: Text(e.subject.isEmpty ? AppLocalizations.of(context)!.noTitle : e.subject),
-          subtitle: Text('${e.startTime}'),
-          onTap: () => close(context, e),
-        );
-      },
-    );
-  }
-}
 
 class _EventViewState extends State<EventView> {
   final eventService = EventService();
   List<EventModel> items = [];
   final calendarController = CalendarController();
   EventCategory? _filterCategory; // null = all
+  bool _isSearching = false;
+  String _searchQuery = '';
 
   @override
   void initState() {
@@ -104,14 +41,32 @@ class _EventViewState extends State<EventView> {
   @override
   Widget build(BuildContext context) {
     final al = AppLocalizations.of(context)!;
-    final List<EventModel> visibleItems = _filterCategory == null
-        ? items
-        : items.where((e) => e.category == _filterCategory).toList();
+    List<EventModel> visibleItems = items;
+    if (_filterCategory != null) {
+      visibleItems = visibleItems.where((e) => e.category == _filterCategory).toList();
+    }
+    if (_isSearching && _searchQuery.trim().isNotEmpty) {
+      final q = _searchQuery.toLowerCase();
+      visibleItems = visibleItems.where((e) {
+        final subject = e.subject.toLowerCase();
+        final notes = (e.notes ?? '').toLowerCase();
+        return subject.contains(q) || notes.contains(q);
+      }).toList();
+    }
     return Scaffold(
       appBar: AppBar(
-        title: Text(al.apptitle),
+        title: _isSearching
+            ? TextField(
+                autofocus: true,
+                decoration: const InputDecoration(
+                  hintText: 'Search...',
+                  border: InputBorder.none,
+                ),
+                onChanged: (value) => setState(() => _searchQuery = value),
+              )
+            : Text(al.apptitle),
         actions: [
-          // Category filter
+          // lọc theo loại sự kiện
           PopupMenuButton<EventCategory?>(
             tooltip: al.category,
             icon: const Icon(Icons.filter_list),
@@ -152,15 +107,23 @@ class _EventViewState extends State<EventView> {
               ),
             ],
           ),
+          if (_filterCategory != null)
+            IconButton(
+              tooltip: '${al.category}: ${al.categoryAll}',
+              icon: const Icon(Icons.filter_alt_off),
+              onPressed: () {
+                setState(() {
+                  _filterCategory = null; 
+                });
+              },
+            ),
           PopupMenuButton<String>(
             icon: const Icon(Icons.language),
-            itemBuilder: (context) => [
-              const PopupMenuItem(value: 'vi', child: Text('Tiếng Việt')),
-              const PopupMenuItem(value: 'en', child: Text('English')),
+            itemBuilder: (context) => const [
+              PopupMenuItem(value: 'vi', child: Text('Tiếng Việt')),
+              PopupMenuItem(value: 'en', child: Text('English')),
             ],
-            onSelected: (code) {
-              MyApp.of(context)?.setLocale(Locale(code));
-            },
+            onSelected: (code) => MyApp.of(context)?.setLocale(Locale(code)),
           ),
           PopupMenuButton<CalendarView>(
             itemBuilder: (context) => CalendarView.values.map((view) {
@@ -182,27 +145,28 @@ class _EventViewState extends State<EventView> {
             },
             icon: const Icon(Icons.today_outlined),
           ),
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () async {
-              final EventModel? selected = await showSearch<EventModel?>(
-                context: context,
-                delegate: EventSearchDelegate(items),
-              );
-              if (selected != null) {
-                // ignore: use_build_context_synchronously
-                Navigator.of(context)
-                    .push(
-                      MaterialPageRoute(
-                        builder: (context) => EventDetailView(event: selected),
-                      ),
-                    )
-                    .then((value) async {
-                      if (value == true) await loadEvents();
-                    });
-              }
-            },
-          ),
+          if (_isSearching)
+            IconButton(
+              tooltip: 'Clear search',
+              icon: const Icon(Icons.clear),
+              onPressed: () {
+                setState(() {
+                  _searchQuery = '';
+                  _isSearching = false;
+                });
+              },
+            )
+          else
+            IconButton(
+              tooltip: 'Search',
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  _isSearching = true;
+                  _searchQuery = '';
+                });
+              },
+            ),
           IconButton(onPressed: loadEvents, icon: const Icon(Icons.refresh)),
         ],
       ),

@@ -95,9 +95,8 @@ class _EventDetailViewState extends State<EventDetailView> {
                 decoration: InputDecoration(labelText: al.labelText),
               ),
               const SizedBox(height: 16),
-              // Category selector
+              // Chọn loại sự kiện
               DropdownButtonFormField<EventCategory>(
-                value: widget.event.category,
                 decoration: InputDecoration(labelText: al.category),
                 items: [
                   DropdownMenuItem(

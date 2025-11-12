@@ -46,7 +46,6 @@ class EventModel {
     );
   }
 
-  // Convert object to Map
   Map<String, dynamic> toMap() {
     return {
       'id': id,
