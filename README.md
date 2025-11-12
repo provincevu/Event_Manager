@@ -62,8 +62,3 @@ Bước chạy nhanh:
 - Đổi ngôn ngữ:
   - Nhấn icon Ngôn ngữ trên AppBar → chọn `Tiếng Việt` hoặc `English`.
   - Giao diện sẽ cập nhật tức thời.
-
----
-Mở issue/PR để đề xuất tính năng, báo lỗi hoặc gửi cải tiến. Mô tả rõ ràng bước tái hiện và môi trường chạy.
-
----
