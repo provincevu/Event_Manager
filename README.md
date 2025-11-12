@@ -13,7 +13,7 @@
 - Tính năng nâng cao
   - Lọc theo nhóm sự kiện: lọc các sự kiện theo tag/nhóm (ví dụ: Công việc, Cá nhân, Học tập).
   - Thay đổi ngôn ngữ trong ứng dụng: chuyển nhanh giữa Tiếng Việt và English.
-  - Tìm kiếm: tìm theo tiêu đề hoặc ghi chú, hiển thị danh sách kết quả và mở nhanh chi tiết.
+  - Tìm kiếm: tìm theo tiêu đề
 
 ---
 
